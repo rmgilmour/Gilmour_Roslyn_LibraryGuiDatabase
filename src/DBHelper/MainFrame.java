@@ -38,7 +38,7 @@ import javax.swing.table.TableColumnModel;
 import java.awt.event.*;
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.*;
 
 
 public class MainFrame extends JFrame {
@@ -50,11 +50,12 @@ public class MainFrame extends JFrame {
     private JButton btnList;
     private JButton btnExit;
     private JButton btnDisplay;
+    private JComboBox comboBox1;
+    private JTextField txtComboField;
     private JTextField tfDbaseResult;
     private JPanel selectDbasePanel;
     private JPanel tabs;
     private JTabbedPane tabbedPane1;
-    private JPanel listPanel;
     private JPanel addPanel;
     private JPanel deletePanel;
     private JPanel outPanel;
@@ -85,8 +86,6 @@ public class MainFrame extends JFrame {
     private JPanel tablePanel;
     private JTable tableList;
     private JButton btnDelTitle;
-    private JComboBox comboBox1;
-    private JTextField textField2;
 
     // Instance to access the bookList.java class
     bookList bl1 = new bookList();
@@ -113,6 +112,7 @@ public class MainFrame extends JFrame {
         setVisible(true);
 
         createTable();
+        data = bl1.getExecuteResult("select * from bookList;");
 
 
         //Action Listener to list the database
@@ -186,26 +186,33 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String code = tfDeleteBcode.getText();
-                bl1.delete("barcode", code);
+                String tle = tfDeleteTitle.getText();
+                if(tfDeleteBcode.getText() != null) {
+                    bl1.delete("barcode", code);
+                } else if (tfDeleteTitle.getText() != null) {
+                    bl1.delete("title", tle);
+                }
+                //bl1.delete("barcode", code);
                 tfDeleteBcode.setText("");
+                tfDeleteTitle.setText("");
                 printDatabase();
             }
         }); // end delete by barcode
-
+/*
         // Action Listener to Delete by title
         btnDelTitle.addActionListener(new ActionListener() {
             /**
              * @param e the event to be processed
              */
-            @Override
+   /*         @Override
             public void actionPerformed(ActionEvent e) {
-                String title = tfDeleteTitle.getText();
-                bl1.delete("title", title);
+                String tle = tfDeleteTitle.getText();
+                bl1.delete("title", tle);
                 tfDeleteTitle.setText("");
                 printDatabase();
             }
         }); // end delete by title
-
+*/
         // Action Listener to Check out an item
         btnCheckOut.addActionListener(new ActionListener() {
             /**
@@ -239,8 +246,7 @@ public class MainFrame extends JFrame {
             }
         }); // end check in
 
-
-        // Exit program button
+        // Action Listener method to exit the program
         btnExit.addActionListener(new ActionListener() {
             /**
              * @param e the event to be processed
@@ -255,6 +261,8 @@ public class MainFrame extends JFrame {
                 }
             }
         }); // end exit program
+
+
 
     } // end MainFrame
 

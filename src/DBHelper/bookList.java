@@ -62,7 +62,7 @@ public class bookList extends DBHelper {
 
 	/*
 	 * Insert
-	 * Purpose:		insert a new recrd into the database
+	 * Purpose:		insert a new record into the database
 	 * Return Type:	void
 	 * Arguments:	each field listed in the table from the database, in order
 	 * Notes:		Due to inheritance, this executes the execute method found in the parent class
