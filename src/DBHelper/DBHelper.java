@@ -47,6 +47,11 @@ public class DBHelper {
 		resultSet = null;
 	}
 
+	/**
+	 * Void method to connect to the database
+	 * Purpose:     Connect to the database
+	 * Return Type: void
+	 */
 	private void connect() {
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -61,6 +66,11 @@ public class DBHelper {
 		}
 	}
 
+	/**
+	 * Void method to close the connection to the database
+	 * Purpose:     Close the connection to the database
+	 * Return Type: void
+	 */
 	private void close() {
 		try {
 			connection.close();
@@ -72,6 +82,12 @@ public class DBHelper {
 		}
 	}
 
+	/**
+	 * Private method to get the rows and columns from the 2D array
+	 * @param list  the even to be processed
+	 * @return array
+	 * Return Type: Array
+	 */
 	private Object[][] arrayListTo2DArray(ArrayList<ArrayList<Object>> list) {
 		Object[][] array = new Object[list.size()][];
 		for (int i = 0; i < list.size(); i++) {
@@ -81,6 +97,10 @@ public class DBHelper {
 		return array;
 	}
 
+	/**
+	 * Void method to execute the connection and sql statement
+	 * @param sql execute the connection and sql statement
+	 */
 	protected void execute(String sql) {
 		try {
 			connect();
@@ -93,6 +113,12 @@ public class DBHelper {
 		}
 	}
 
+	/**
+	 * Purpose:     Protected method to access the table,
+	 * 				add the column data
+	 * @param sql 	execute the query and sql statement
+	 * @return tableModel, array
+	 */
 	protected DefaultTableModel executeQueryToTable(String sql) {
 		ArrayList<ArrayList<Object>> result = new ArrayList<ArrayList<Object>>();
 		ArrayList<Object> columns = new ArrayList<Object>();
@@ -115,6 +141,14 @@ public class DBHelper {
 		return new DefaultTableModel(arrayListTo2DArray(result), columns.toArray());
 	}
 
+	/**
+	 * Protected method to query the array and sql statement
+	 * Purpose:     Protected method to access the table,
+	 * 				add the column data
+	 * @param sql execute query and sql statement
+	 * @return result
+	 * Return Type: array data
+	 */
 	protected ArrayList<ArrayList<Object>> executeQuery(String sql) {
 		ArrayList<ArrayList<Object>> result = new ArrayList<ArrayList<Object>>();
 		connect();

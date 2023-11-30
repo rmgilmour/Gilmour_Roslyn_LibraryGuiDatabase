@@ -87,14 +87,24 @@ public class MainFrame extends JFrame {
     private JTable tableList;
     private JButton btnDelTitle;
 
-    // Instance to access the bookList.java class
+    /**
+     * Instance to access the bookList class
+     */
     bookList bl1 = new bookList();
+
+    /**
+     * Arraylist object to store the data
+     */
     ArrayList<ArrayList<Object>> data = new ArrayList<ArrayList<Object>>();
 
-    // Object array to hold the rows content
-    Object[][] dataList = {};
+    /**
+     * 2dArray to store the data
+     */
+     Object[][] dataList = {};
 
-    // String array to hold the columns content
+    /**
+     * String array to store the column headings
+     */
     String[] columns = {"Barcode", "Title", "Author", "Status", "Due Date"};
 
 
@@ -114,10 +124,9 @@ public class MainFrame extends JFrame {
         createTable();
         data = bl1.getExecuteResult("select * from bookList;");
 
-
-        //Action Listener to list the database
         btnList.addActionListener(new ActionListener() {
             /**
+             * Purpose: Method to list the database
              * @param e the event to be processed
              */
             @Override
@@ -153,9 +162,9 @@ public class MainFrame extends JFrame {
             }
         }); // end btnList
 
-        // Action listener to add an item
         btnAddSubmit.addActionListener(new ActionListener() {
             /**
+             * Purpose: Method to add an item
              * @param e the event to be processed
              */
             @Override
@@ -178,9 +187,9 @@ public class MainFrame extends JFrame {
             }
         }); //end add an item
 
-        // Action Listener to delete by barcode
         btnDelCode.addActionListener(new ActionListener() {
             /**
+             * Purpose: Method to delete an item
              * @param e the event to be processed
              */
             @Override
@@ -192,30 +201,15 @@ public class MainFrame extends JFrame {
                 } else if (tfDeleteTitle.getText() != null) {
                     bl1.delete("title", tle);
                 }
-                //bl1.delete("barcode", code);
                 tfDeleteBcode.setText("");
                 tfDeleteTitle.setText("");
                 printDatabase();
             }
         }); // end delete by barcode
-/*
-        // Action Listener to Delete by title
-        btnDelTitle.addActionListener(new ActionListener() {
-            /**
-             * @param e the event to be processed
-             */
-   /*         @Override
-            public void actionPerformed(ActionEvent e) {
-                String tle = tfDeleteTitle.getText();
-                bl1.delete("title", tle);
-                tfDeleteTitle.setText("");
-                printDatabase();
-            }
-        }); // end delete by title
-*/
-        // Action Listener to Check out an item
+
         btnCheckOut.addActionListener(new ActionListener() {
             /**
+             * Purpose: Method to check out an item
              * @param e the event to be processed
              */
             @Override
@@ -231,9 +225,9 @@ public class MainFrame extends JFrame {
             }
         }); // end check out
 
-        // Action Listener to Check in an item
         btnCheckIn.addActionListener(new ActionListener() {
             /**
+             * Purpose: Method to check in an item
              * @param e the event to be processed
              */
             @Override
@@ -249,6 +243,7 @@ public class MainFrame extends JFrame {
         // Action Listener method to exit the program
         btnExit.addActionListener(new ActionListener() {
             /**
+             * Purpose: Method to Exit the program
              * @param e the event to be processed
              */
             @Override
@@ -260,15 +255,13 @@ public class MainFrame extends JFrame {
                     System.exit(0);
                 }
             }
-        }); // end exit program
+        }); // end exit
 
-
-
-    } // end MainFrame
+    } // end mainFrame
 
     /** Void method to create the table
      * Purpose:     Method to create the table
-     * Arguments:   set the column data, width, and format
+     * Arguments:   Set the column data, width, and format
      * Return Type: void
      */
     private void createTable() {
@@ -334,7 +327,8 @@ public class MainFrame extends JFrame {
     /**
      * Main
      * Purpose:     To create a connection to the database
-     * Arguments:   SQL query to select the database details
+     * @param args connect to the database
+     * @throws java.sql.SQLException
      * Return Type: void
      */
 
@@ -357,7 +351,6 @@ public class MainFrame extends JFrame {
         }
         con.close();
     } // end main
-
 
 } // end Class MainFrame
 
